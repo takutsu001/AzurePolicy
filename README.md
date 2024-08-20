@@ -1,0 +1,2 @@
+# AzurePolicy
+Azureポリシー(サンプル)

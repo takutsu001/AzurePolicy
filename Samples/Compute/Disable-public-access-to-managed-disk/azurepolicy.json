@@ -1,0 +1,70 @@
+{
+    "mode": "Indexed",
+    "policyRule": {
+      "if": {
+        "allOf": [
+          {
+            "field": "type",
+            "equals": "Microsoft.Compute/disks"
+          },
+          {
+            "field": "location",
+            "equals": "[parameters('location')]"
+          },
+          {
+            "field": "Microsoft.Compute/disks/networkAccessPolicy",
+            "notIn": [
+              "DenyAll"
+            ]
+          },
+          {
+            "field": "Microsoft.Compute/disks/publicNetworkAccess",
+            "notEquals": "Disabled"
+          }
+        ]
+      },
+      "then": {
+        "effect": "[parameters('effect')]",
+        "details": {
+          "roleDefinitionIds": [
+            "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+          ],
+          "conflictEffect": "audit",
+          "operations": [
+            {
+              "operation": "addOrReplace",
+              "field": "Microsoft.Compute/disks/networkAccessPolicy",
+              "value": "DenyAll"
+            },
+            {
+              "operation": "addOrReplace",
+              "field": "Microsoft.Compute/disks/publicNetworkAccess",
+              "value": "Disabled"
+            }
+          ]
+        }
+      }
+    },
+    "parameters": {
+      "effect": {
+        "type": "String",
+        "metadata": {
+          "displayName": "効果",
+          "description": "ポリシーの実行を有効または無効にします"
+        },
+        "allowedValues": [
+          "Modify",
+          "Disabled"
+        ],
+        "defaultValue": "Modify"
+      },
+      "location": {
+        "type": "String",
+        "metadata": {
+          "displayName": "場所",
+          "description": "このリージョンのすべてのディスクが検証され、それらにディスク アクセス リソースが関連付けられます。",
+          "strongType": "location"
+        }
+      }
+    }
+  }

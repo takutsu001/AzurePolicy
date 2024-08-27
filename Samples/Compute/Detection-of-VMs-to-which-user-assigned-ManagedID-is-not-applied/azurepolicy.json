@@ -1,0 +1,29 @@
+{
+    "mode": "All",
+    "policyRule": {
+      "if": {
+        "allOf": [
+          {
+            "field": "type",
+            "equals": "Microsoft.Compute/virtualMachines"
+          },
+          {
+            "anyOf": [
+              {
+                "field": "identity.userAssignedIdentities",
+                "exists": false
+              },
+              {
+                "field": "identity.userAssignedIdentities",
+                "equals": "{}"
+              }
+            ]
+          }
+        ]
+      },
+      "then": {
+        "effect": "Audit"
+      }
+    },
+    "parameters": {}
+  }

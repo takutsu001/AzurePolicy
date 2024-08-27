@@ -21,3 +21,7 @@
 - ストレージ作成時は本ポリシーは適用されない（適用されるのは作成後）
 - パブリックネットワークアクセス関連の設定はすべて拒否される（パブリックアクセスの設定変更や許可するIPの削除や追加など）
 - プライベートエンドポイント接続の設定は可能
+
+----
+動作イメージ
+![](images/Prohibit-changes-to-network-settings-after-storage-account-creation_Policy_01.png)
